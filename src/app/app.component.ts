@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   constructor() {
   }
- 
+
   ngOnInit() {
     this.qu1(); //Question No. 1
     this.qu2(); //Question No. 2
@@ -45,7 +45,7 @@ Whereas “this” is used to access members of a class.`);
     console.log(result);
   }
 
-  getCharCount(strArrayInput) {
+  getCharCount(strArrayInput: string[]) {
     let strInput: string = strArrayInput.join('').toString();
     let charCountMap: Map<string, number> = new Map<string, number>();
     for (let i = 0; i < strInput.length; i++) {
@@ -100,16 +100,20 @@ Whereas “this” is used to access members of a class.`);
     console.log("Output without split and reverse: " + this.getReversedStringWithOutSplitAndReverse(inputString));
   }
 
-  getReversedStringWithSplitAndReverse(inputStr) {
-    return inputStr.split("").reverse().join("").toString();
+  getReversedStringWithSplitAndReverse(inputStr: string) {
+    return inputStr.split("").reverse().join("").split(" ").reverse().join(" ");
   }
 
-  getReversedStringWithOutSplitAndReverse(inputStr) {
-    let outputStringArr: string[] = [];
-    for (let i = inputStr.length - 1; i >= 0; i--) {
-      outputStringArr.push(inputStr.charAt(i));
-    }
-    return outputStringArr.join("").toString();
+  getReversedStringWithOutSplitAndReverse(inputStr: string) {            
+    let outputStrArr: string[] = inputStr.match(/\S+/g);
+    outputStrArr.forEach((x,indx) => {
+      let reversedStringArr: string[] = [];
+      for (let i = x.length - 1; i >= 0; i--) {
+        reversedStringArr.push(x.charAt(i));
+      }
+      outputStrArr[indx]=reversedStringArr.join("").toString();
+    });
+    return outputStrArr.join(" ").toString();
   }
   //Question No. 4 - end
 
@@ -123,7 +127,7 @@ Whereas “this” is used to access members of a class.`);
     console.log(this.getDistinctStringArray(inputStringArray));
   }
 
-  getDistinctStringArray(inptStrArr) {
+  getDistinctStringArray(inptStrArr: string[]) {
     return inptStrArr.filter((value, index) => index == inptStrArr.indexOf(value));
   }
   //Question No. 5 - end
